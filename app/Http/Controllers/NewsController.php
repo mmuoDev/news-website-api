@@ -52,6 +52,7 @@ class NewsController extends Controller
     public function delete(Request $request){
         $method = $request->isMethod('post');
         $user_id = Auth::user()->id;
+
         if($method){
             //delete
             $article_id = $request->article_id;
@@ -60,9 +61,9 @@ class NewsController extends Controller
             return back();
         }else{
             //use raw sql queries to hasten the select process
-            $articles = DB::select("select a.headline, a.id as article_id, a.body, c.name as category, u.name as created_by from articles as a, 
+            $articles = DB::select("select a.headline, a.id as article_id, a.body, c.name as category, u.name as created_by, a.created_at as created from articles as a, 
             categories as c, users as u
-            where a.category_id = c.id and a.created_by = u.id and a.deleted_at IS NULL and a.id = '$user_id'");
+            where a.category_id = c.id and a.created_by = u.id and a.deleted_at IS NULL and a.created_by = '$user_id'");
             return view('news.remove', compact('articles'));
         }
     }

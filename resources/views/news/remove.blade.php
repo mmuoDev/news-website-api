@@ -16,6 +16,7 @@
                         @endif
                         <table class="table table-bordered">
                             <thead>
+                                <th>Created</th>
                                 <th>Headline</th>
                                 <th>Body</th>
                                 <th>Category</th>
@@ -26,6 +27,7 @@
                                 @if(isset($articles))
                                     @foreach($articles as $article)
                                         <tr>
+                                            <td>{{date('d-m-Y', strtotime($article->created))}}</td>
                                             <td>{{$article->headline}}</td>
                                             <td>{{$article->body}}</td>
                                             <td>{{$article->category}}</td>
